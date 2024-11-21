@@ -1,187 +1,304 @@
--- MariaDB dump 10.19  Distrib 10.4.28-MariaDB, for Win64 (AMD64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: centre_formation
--- ------------------------------------------------------
--- Server version	10.4.28-MariaDB
+-- Hôte : 127.0.0.1
+-- Généré le : jeu. 21 nov. 2024 à 12:19
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.2.4
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+SET
+    SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET
+    time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `appartient`
+-- Base de données : `centre_formation`
 --
 
-DROP TABLE IF EXISTS `appartient`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `appartient` (
-  `codeForm` varchar(8) NOT NULL,
-  `codeSpec` varchar(8) NOT NULL,
-  PRIMARY KEY (`codeForm`,`codeSpec`),
-  KEY `codeSpec` (`codeSpec`),
-  CONSTRAINT `appartient_ibfk_1` FOREIGN KEY (`codeForm`) REFERENCES `formation` (`codeForm`),
-  CONSTRAINT `appartient_ibfk_2` FOREIGN KEY (`codeSpec`) REFERENCES `specialite` (`codeSpec`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `appartient`
+-- Structure de la table `catalogue`
 --
 
-LOCK TABLES `appartient` WRITE;
-/*!40000 ALTER TABLE `appartient` DISABLE KEYS */;
-/*!40000 ALTER TABLE `appartient` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `catalogue`
+(
+    `codeForm` varchar(8) NOT NULL,
+    `codeSpec` varchar(8) NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 --
--- Table structure for table `etudiant`
+-- Déchargement des données de la table `catalogue`
 --
 
-DROP TABLE IF EXISTS `etudiant`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `etudiant` (
-  `NumCNIEtu` varchar(20) NOT NULL,
-  `nomEtu` varchar(30) DEFAULT NULL,
-  `prenomEtu` varchar(30) DEFAULT NULL,
-  `dateNaissance` date DEFAULT NULL,
-  `adresseEtu` varchar(50) DEFAULT NULL,
-  `villeEtu` varchar(30) DEFAULT NULL,
-  `niveauEtu` int(11) DEFAULT NULL,
-  PRIMARY KEY (`NumCNIEtu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `catalogue` (`codeForm`, `codeSpec`)
+VALUES ('11', '101'),
+       ('12', '101'),
+       ('13', '103'),
+       ('13', '104'),
+       ('14', '104'),
+       ('15', '101'),
+       ('15', '102'),
+       ('16', '104');
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `etudiant`
+-- Structure de la table `etudiant`
 --
 
-LOCK TABLES `etudiant` WRITE;
-/*!40000 ALTER TABLE `etudiant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `etudiant` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `etudiant`
+(
+    `NumCNIEtu`     varchar(20) NOT NULL,
+    `nomEtu`        varchar(30) DEFAULT NULL,
+    `prenomEtu`     varchar(30) DEFAULT NULL,
+    `dateNaissance` date        DEFAULT NULL,
+    `adresseEtu`    varchar(50) DEFAULT NULL,
+    `villeEtu`      varchar(30) DEFAULT NULL,
+    `niveauEtu`     varchar(10) DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 --
--- Table structure for table `formation`
+-- Déchargement des données de la table `etudiant`
 --
 
-DROP TABLE IF EXISTS `formation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `formation` (
-  `codeForm` varchar(8) NOT NULL,
-  `titreForm` varchar(20) DEFAULT NULL,
-  `dureeForm` int(11) DEFAULT NULL,
-  `prixForm` float DEFAULT NULL,
-  PRIMARY KEY (`codeForm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `etudiant` (`NumCNIEtu`, `nomEtu`, `prenomEtu`, `dateNaissance`, `adresseEtu`, `villeEtu`, `niveauEtu`)
+VALUES ('AB234567', 'Alami', 'Ahmad', '1987-01-02', 'Rue du port, 13', 'Kenitra', 'bac'),
+       ('C0987265', 'Souni', 'Sanaa', '1998-04-30', 'Place du peuple n 2', 'Tanger', 'Niveau bac'),
+       ('D2356903', 'Idrissi Alami', 'Mohammed', '1996-05-05', 'Lotissement najah, rue n 12 immeuble 3', 'Rabat',
+        'Bac+ 4'),
+       ('F9827363', 'Boudiaf', 'Fatima Zohra', '1997-01-10', 'Immeuble iftikhar, n 13 ettakaddoum', 'Rabat', 'Bac+ 2'),
+       ('G5346789', 'Toumi', 'Aicha', '2000-12-03', 'N12 immeuble Jaouhara', 'Casablanca', 'Bac+ 5'),
+       ('J3578902', 'Ben Omar', 'Abd Allah', '1990-06-25', 'Villa Amina n12 bir rami', 'Kenitra', 'Doctorat'),
+       ('Y1234987', 'Ouled thami', 'Ali', '1979-12-04', 'La ville haute, rue chouhada n 6', 'Tanger', 'Bac+ 4');
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `formation`
+-- Structure de la table `formation`
 --
 
-LOCK TABLES `formation` WRITE;
-/*!40000 ALTER TABLE `formation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `formation` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `formation`
+(
+    `codeForm`  varchar(8) NOT NULL,
+    `titreForm` varchar(20) DEFAULT NULL,
+    `dureeForm` int(11)     DEFAULT NULL,
+    `prixForm`  float       DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 --
--- Table structure for table `inscription`
+-- Déchargement des données de la table `formation`
 --
 
-DROP TABLE IF EXISTS `inscription`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inscription` (
-  `codeSess` varchar(8) NOT NULL,
-  `NumCNIEtu` varchar(20) NOT NULL,
-  `TypeCours` varchar(8) NOT NULL,
-  PRIMARY KEY (`codeSess`,`NumCNIEtu`),
-  KEY `NumCNIEtu` (`NumCNIEtu`),
-  CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`codeSess`) REFERENCES `session` (`codeSess`),
-  CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`NumCNIEtu`) REFERENCES `etudiant` (`NumCNIEtu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `formation` (`codeForm`, `titreForm`, `dureeForm`, `prixForm`)
+VALUES ('11', 'developpement Java', 12, 3600),
+       ('12', 'web developpment', 14, 4200),
+       ('13', 'Anglais technique', 15, 3750),
+       ('14', 'Communication', 10, 2500),
+       ('15', 'Base de données Orac', 20, 6000),
+       ('16', 'Soft skills', 12, 3000);
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `inscription`
+-- Structure de la table `inscription`
 --
 
-LOCK TABLES `inscription` WRITE;
-/*!40000 ALTER TABLE `inscription` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inscription` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `inscription`
+(
+    `codeSess`       varchar(8)  NOT NULL,
+    `NumCNIEtu`      varchar(20) NOT NULL,
+    `TypeCours`      varchar(12) NOT NULL,
+    `numInscription` varchar(30) DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 --
--- Table structure for table `session`
+-- Déchargement des données de la table `inscription`
 --
 
-DROP TABLE IF EXISTS `session`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `session` (
-  `codeSess` varchar(8) NOT NULL,
-  `nomSess` varchar(20) DEFAULT NULL,
-  `dateDebut` date DEFAULT NULL,
-  `dateFin` date DEFAULT NULL,
-  `codeForm` varchar(8) NOT NULL,
-  PRIMARY KEY (`codeSess`),
-  KEY `codeForm` (`codeForm`),
-  CONSTRAINT `session_ibfk_1` FOREIGN KEY (`codeForm`) REFERENCES `formation` (`codeForm`),
-  CONSTRAINT `chk_date` CHECK (`dateFin` > `dateDebut`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `inscription` (`codeSess`, `NumCNIEtu`, `TypeCours`, `numInscription`)
+VALUES ('1101', 'AB234567', 'Distanciel', '1101AB234567'),
+       ('1101', 'C0987265', 'Distanciel', '1101C0987265'),
+       ('1101', 'D2356903', 'Distanciel', '1101D2356903'),
+       ('1101', 'F9827363', 'Distanciel', '1101F9827363'),
+       ('1101', 'G5346789', 'Distanciel', '1101G5346789'),
+       ('1101', 'J3578902', 'Distanciel', '1101J3578902'),
+       ('1101', 'Y1234987', 'Distanciel', '1101Y1234987'),
+       ('1201', 'AB234567', 'Presentiel', '1201AB234567'),
+       ('1201', 'C0987265', 'Presentiel', '1201C0987265'),
+       ('1201', 'D2356903', 'Presentiel', '1201D2356903'),
+       ('1201', 'G5346789', 'Distanciel', '1201G5346789'),
+       ('1201', 'J3578902', 'Presentiel', '1201J3578902'),
+       ('1201', 'Y1234987', 'Presentiel', '1201Y1234987'),
+       ('1302', 'AB234567', 'Presentiel', '1302AB234567'),
+       ('1302', 'C0987265', 'Presentiel', '1302C0987265'),
+       ('1302', 'D2356903', 'Presentiel', '1302D2356903'),
+       ('1302', 'G5346789', 'Distanciel', '1302G5346789'),
+       ('1302', 'Y1234987', 'Presentiel', '1302Y1234987'),
+       ('1401', 'C0987265', 'Distanciel', '1401C0987265'),
+       ('1401', 'D2356903', 'Distanciel', '1401D2356903'),
+       ('1401', 'F9827363', 'Distanciel', '1401F9827363'),
+       ('1401', 'G5346789', 'Distanciel', '1401G5346789'),
+       ('1401', 'J3578902', 'Distanciel', '1401J3578902'),
+       ('1401', 'Y1234987', 'Distanciel', '1401Y1234987'),
+       ('1501', 'AB234567', 'Distanciel', '1501AB234567'),
+       ('1501', 'C0987265', 'Distanciel', '1501C0987265'),
+       ('1501', 'D2356903', 'Presentiel', '1501D2356903'),
+       ('1501', 'F9827363', 'Presentiel', '1501F9827363'),
+       ('1501', 'G5346789', 'Distanciel', '1501G5346789'),
+       ('1501', 'J3578902', 'Presentiel', '1501J3578902'),
+       ('1501', 'Y1234987', 'Presentiel', '1501Y1234987');
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `session`
+-- Structure de la table `session`
 --
 
-LOCK TABLES `session` WRITE;
-/*!40000 ALTER TABLE `session` DISABLE KEYS */;
-/*!40000 ALTER TABLE `session` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `session`
+(
+    `codeSess`  varchar(8) NOT NULL,
+    `nomSess`   varchar(20) DEFAULT NULL,
+    `dateDebut` date        DEFAULT NULL,
+    `dateFin`   date        DEFAULT NULL,
+    `codeForm`  varchar(8) NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 --
--- Table structure for table `specialite`
+-- Déchargement des données de la table `session`
 --
 
-DROP TABLE IF EXISTS `specialite`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `specialite` (
-  `codeSpec` varchar(8) NOT NULL,
-  `nomSpec` varchar(20) DEFAULT NULL,
-  `descSpec` varchar(255) DEFAULT NULL,
-  `Active` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`codeSpec`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `session` (`codeSess`, `nomSess`, `dateDebut`, `dateFin`, `codeForm`)
+VALUES ('1101', 'Session 1101', '2022-01-02', '2022-01-14', '11'),
+       ('1102', 'Session 1102', '2022-02-03', '2022-02-15', '11'),
+       ('1104', 'Session 1104', '2022-10-15', '2022-10-27', '11'),
+       ('1201', 'Session 1201', '2022-03-04', '2022-03-18', '12'),
+       ('1202', 'Session 1202', '2022-04-05', '2022-04-19', '12'),
+       ('1203', 'Session 1203', '2022-11-16', '2022-11-30', '12'),
+       ('1204', 'Session 1204', '2022-12-17', '2022-12-31', '12'),
+       ('1301', 'Session 1301', '2022-01-06', '2022-01-21', '13'),
+       ('1302', 'Session 1302', '2022-05-07', '2022-05-22', '13'),
+       ('1303', 'Session 1303', '2022-06-08', '2022-06-23', '13'),
+       ('1401', 'Session 1401', '2022-09-01', '2022-09-11', '14'),
+       ('1402', 'Session 1402', '2022-08-08', '2022-08-18', '14'),
+       ('1501', 'Session 1501', '2022-11-11', '2022-12-01', '15'),
+       ('1502', 'Session 1502', '2022-09-12', '2022-10-02', '15'),
+       ('1601', 'Session 1601', '2022-09-13', '2022-09-25', '16'),
+       ('1602', 'Session 1602', '2022-10-14', '2022-10-26', '16');
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `specialite`
+-- Structure de la table `specialite`
 --
 
-LOCK TABLES `specialite` WRITE;
-/*!40000 ALTER TABLE `specialite` DISABLE KEYS */;
-/*!40000 ALTER TABLE `specialite` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE TABLE `specialite`
+(
+    `codeSpec` varchar(8) NOT NULL,
+    `nomSpec`  varchar(20)  DEFAULT NULL,
+    `descSpec` varchar(255) DEFAULT NULL,
+    `Active`   tinyint(1)   DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- Déchargement des données de la table `specialite`
+--
 
--- Dump completed on 2024-11-13 15:11:53
+INSERT INTO `specialite` (`codeSpec`, `nomSpec`, `descSpec`, `Active`)
+VALUES ('101', 'GL', 'Genie logiciel et develloppement', 1),
+       ('102', 'Data', 'Data engineering', 1),
+       ('103', 'Langues', 'Anglais Français', 1),
+       ('104', 'Communication', 'Communication', 1),
+       ('105', 'Securite', 'Reseaux et securite', 0);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `catalogue`
+--
+ALTER TABLE `catalogue`
+    ADD PRIMARY KEY (`codeForm`, `codeSpec`),
+    ADD KEY `codeSpec` (`codeSpec`);
+
+--
+-- Index pour la table `etudiant`
+--
+ALTER TABLE `etudiant`
+    ADD PRIMARY KEY (`NumCNIEtu`);
+
+--
+-- Index pour la table `formation`
+--
+ALTER TABLE `formation`
+    ADD PRIMARY KEY (`codeForm`);
+
+--
+-- Index pour la table `inscription`
+--
+ALTER TABLE `inscription`
+    ADD PRIMARY KEY (`codeSess`, `NumCNIEtu`),
+    ADD KEY `NumCNIEtu` (`NumCNIEtu`);
+
+--
+-- Index pour la table `session`
+--
+ALTER TABLE `session`
+    ADD PRIMARY KEY (`codeSess`),
+    ADD KEY `codeForm` (`codeForm`);
+
+--
+-- Index pour la table `specialite`
+--
+ALTER TABLE `specialite`
+    ADD PRIMARY KEY (`codeSpec`);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `catalogue`
+--
+ALTER TABLE `catalogue`
+    ADD CONSTRAINT `catalogue_ibfk_1` FOREIGN KEY (`codeForm`) REFERENCES `formation` (`codeForm`),
+    ADD CONSTRAINT `catalogue_ibfk_2` FOREIGN KEY (`codeSpec`) REFERENCES `specialite` (`codeSpec`);
+
+--
+-- Contraintes pour la table `inscription`
+--
+ALTER TABLE `inscription`
+    ADD CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`codeSess`) REFERENCES `session` (`codeSess`),
+    ADD CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`NumCNIEtu`) REFERENCES `etudiant` (`NumCNIEtu`);
+
+--
+-- Contraintes pour la table `session`
+--
+ALTER TABLE `session`
+    ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`codeForm`) REFERENCES `formation` (`codeForm`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
